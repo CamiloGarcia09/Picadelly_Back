@@ -81,6 +81,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(org.springframework.security.authorization.AuthorizationDeniedException.class)
+    public ResponseEntity<?> handleAuthorizationDenied(org.springframework.security.authorization.AuthorizationDeniedException ex) {
+
+        ApiResponse<Object> response = ApiResponse.builder()
+                .success(false)
+                .message("No tienes permisos para realizar esta acción")
+                .data(null)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralError(Exception ex) {
         ex.printStackTrace();

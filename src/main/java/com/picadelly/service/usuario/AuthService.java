@@ -35,7 +35,7 @@ public class AuthService {
         usuario.setDocumento(request.getDocumento());
         usuario.setEmail(request.getEmail());
         usuario.setPassword(passwordEncoder.encode(request.getPassword()));
-        usuario.setRol(Rol.ADMIN);
+        usuario.setRol(request.getRol());
         usuario.setEstado(true);
 
         usuarioRepository.save(usuario);
