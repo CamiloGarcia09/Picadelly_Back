@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "movimientos_inventario")
-public class MovimientoInventario {
+public final class MovimientoInventario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

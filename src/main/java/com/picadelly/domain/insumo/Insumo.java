@@ -1,5 +1,6 @@
 package com.picadelly.domain.insumo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.picadelly.domain.tipoinsumo.TipoInsumo;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "insumos")
-public class Insumo {
+public final    class Insumo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
