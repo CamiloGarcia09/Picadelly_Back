@@ -6,7 +6,6 @@ import com.picadelly.dto.usuario.request.UserUpdateRequest;
 import com.picadelly.dto.usuario.response.UserResponse;
 import com.picadelly.repository.usuario.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public final class UserService {
 
     private final UsuarioRepository usuarioRepository;
 

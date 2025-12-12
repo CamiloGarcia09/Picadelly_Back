@@ -1,7 +1,5 @@
 package com.picadelly.service.usuario;
 
-import com.picadelly.domain.usuario.Rol;
-
 import com.picadelly.domain.usuario.Usuario;
 import com.picadelly.dto.usuario.request.AuthRequest;
 import com.picadelly.dto.usuario.request.RegisterRequest;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public final class AuthService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;

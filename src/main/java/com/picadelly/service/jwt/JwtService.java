@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
-public class JwtService {
+public final class JwtService {
 
     private static final String SECRET_KEY = "F1uCb1jBKMElAl3XjGF9Xr2lHyB2nIe0RHDQIxiPtVsr5S2PyJ";
 
