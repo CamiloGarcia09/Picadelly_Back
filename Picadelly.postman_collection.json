@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "9b41d4b3-9aea-487b-86b0-062b56b23e55",
+		"name": "Picadelly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37340473"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Juan Camilo García\",\r\n  \"documento\": \"1023456789\",\r\n  \"email\": \"juan@gamil.com\",\r\n  \"password\": \"123\",\r\n  \"rol\": \"ADMIN\",\r\n  \"estado\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"juan@gamil.com\",\r\n  \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoInsumo",
+			"item": [
+				{
+					"name": "CreateTipoInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Materia Prima\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllTipoInsumo",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GetTipoInsumoById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTipoInsumoByName",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTipoInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Materia Terciaria\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo/03bb7fd7-c5f7-43e2-98fa-220932c84724",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo",
+								"03bb7fd7-c5f7-43e2-98fa-220932c84724"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletetipoInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo/03bb7fd7-c5f7-43e2-98fa-220932c84724",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo",
+								"03bb7fd7-c5f7-43e2-98fa-220932c84724"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Insumo",
+			"item": [
+				{
+					"name": "CreateInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Fresas\",\r\n  \"tipo\": {\r\n    \"id\": \"8436090a-f6fa-4854-a195-43660d6173d8\"\r\n  },\r\n  \"unidadMedida\": \"KG\",\r\n  \"stockMinimo\": 5.0,\r\n  \"stockMaximo\": 50.0,\r\n  \"fechaCaducidad\": \"2025-12-31\",\r\n  \"imagenURL\": \"https://cdn.picadelly.com/insumos/fresas.png\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/insumo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"insumo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/insumo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"insumo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetInsumoById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/insumo/cd98ea4a-4e11-44f3-afd6-aaf255eec9a3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"insumo",
+								"cd98ea4a-4e11-44f3-afd6-aaf255eec9a3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetInsumoByName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo/Materia Secundaria/insumo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo",
+								"Materia Secundaria",
+								"insumo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateInsumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuQGdhbWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU3ODAzMCwiZXhwIjoxNzY1NTgxNjMwfQ.nMLg3NNkjasDIN3FSJOvbForJznxtEZUbiylP_oJe7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Chocolate\",\r\n  \"tipo\": {\r\n    \"id\": \"8436090a-f6fa-4854-a195-43660d6173d8\"\r\n  },\r\n  \"unidadMedida\": \"KG\",\r\n  \"stockMinimo\": 5.0,\r\n  \"stockMaximo\": 50.0,\r\n  \"fechaCaducidad\": \"2025-12-31\",\r\n  \"imagenURL\": \"https://cdn.picadelly.com/insumos/chocolate.png\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tipoinsumo/cd98ea4a-4e11-44f3-afd6-aaf255eec9a3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tipoinsumo",
+								"cd98ea4a-4e11-44f3-afd6-aaf255eec9a3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DelateInsumo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/insumo/03bb7fd7-c5f7-43e2-98fa-220932c84724",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"insumo",
+								"03bb7fd7-c5f7-43e2-98fa-220932c84724"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MovimientoInventario",
+			"item": [
+				{
+					"name": "CreateMovimientoInvetario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/insumo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"insumo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllMovimientoInventario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/movimientoinventario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"movimientoinventario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMovimientoInventarioById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
