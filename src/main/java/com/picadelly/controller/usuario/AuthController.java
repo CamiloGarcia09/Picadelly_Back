@@ -20,6 +20,7 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/register")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<Void> register(@RequestBody RegisterRequest request) {
         authService.register(request);
         return ApiResponse.<Void>builder()

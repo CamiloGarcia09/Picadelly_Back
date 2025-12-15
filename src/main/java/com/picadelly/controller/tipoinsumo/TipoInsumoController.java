@@ -1,63 +1,76 @@
 package com.picadelly.controller.tipoinsumo;
 
 import com.picadelly.domain.tipoinsumo.TipoInsumo;
+import com.picadelly.dto.ApiResponse;
 import com.picadelly.service.tipoinsumo.TipoInsumoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/tipoinsumo")
+@RequiredArgsConstructor
 public class TipoInsumoController {
 
     private final TipoInsumoService tipoInsumoService;
-
-    public TipoInsumoController(final TipoInsumoService tipoInsumoService) {
-        this.tipoInsumoService = tipoInsumoService;
-    }
+    private final JsonMapper.Builder builder;
 
     @GetMapping
-    public ResponseEntity<List<TipoInsumo>> getAllTipoInsumo() {
-        List<TipoInsumo> tipoInsumos = tipoInsumoService.findAll();
-        if (tipoInsumos.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(tipoInsumos);
+    public ApiResponse<List<TipoInsumo>> getAllTipoInsumo() {
+        return ApiResponse.<List<TipoInsumo>>builder()
+                .success(true)
+                .message("Lista de tipos de insumo")
+                .data(tipoInsumoService.findAll())
+                .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoInsumo> getTipoInsumoById(@PathVariable UUID id) {
-        return tipoInsumoService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ApiResponse<TipoInsumo> getTipoInsumoById(@PathVariable UUID id) {
+        return ApiResponse.<TipoInsumo>builder()
+                .success(true)
+                .message("Tipo de insumo encontrado")
+                .data(tipoInsumoService.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException("Tipo de insumo no encontrado")))
+                .build();
     }
 
-    @GetMapping("/{nombre}/tipoinsumo")
-    public ResponseEntity<TipoInsumo> getTipoInsumoByName(@PathVariable String nombre) {
-        return tipoInsumoService.findByNombre(nombre)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/nombre/{nombre}")
+    public ApiResponse<TipoInsumo> getTipoInsumoByName(@PathVariable String nombre) {
+        return ApiResponse.<TipoInsumo>builder()
+                .success(true)
+                .message("Tipo de insumo encontrado")
+                .data(tipoInsumoService.findByNombre(nombre)
+                        .orElseThrow(() ->
+                                new RuntimeException("Tipo de insumo no encontrado")))
+                .build();
     }
 
     @PostMapping
-    public ResponseEntity<String> createTipoInsumo(@RequestBody TipoInsumo tipoInsumo) {
-        try {
-            tipoInsumoService.saveTipoInsumo(tipoInsumo);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("Tipo Insumo creado exitosamente.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse<TipoInsumo> createTipoInsumo(
+            @RequestBody TipoInsumo tipoInsumo
+    ) {
+        return ApiResponse.<TipoInsumo>builder()
+                .success(true)
+                .message("Tipo de insumo creado exitosamente")
+                .data(tipoInsumoService.saveTipoInsumo(tipoInsumo))
+                .build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTipoInsumo(@PathVariable UUID id, @RequestBody TipoInsumo tipoInsumo) {
+    public ResponseEntity<String> updateTipoInsumo(
+            @PathVariable UUID id,
+            @RequestBody TipoInsumo tipoInsumo
+    ) {
         try {
             tipoInsumoService.updateTipoInsumo(id, tipoInsumo);
-            return ResponseEntity.ok("Tipo Insumo actulizado con exito");
+            return ResponseEntity.ok("Tipo Insumo actualizado con éxito");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -67,10 +80,9 @@ public class TipoInsumoController {
     public ResponseEntity<String> deleteTipoInsumo(@PathVariable UUID id) {
         try {
             tipoInsumoService.deleteTipoInsumo(id);
-            return ResponseEntity.ok("Tipo Insumo eliminado correctamente.");
+            return ResponseEntity.ok("Tipo Insumo eliminado correctamente");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 }
