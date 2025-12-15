@@ -37,6 +37,7 @@ public final class UserService {
 
         if (req.getNombre() != null) usuario.setNombre(req.getNombre());
         if (req.getEstado() != null) usuario.setEstado(req.getEstado());
+        if (req.getEmail() != null) usuario.setEmail(req.getEmail());
 
         if (req.getRol() != null) {
             try {
