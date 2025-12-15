@@ -34,9 +34,7 @@ public class TipoInsumoController {
         return ApiResponse.<TipoInsumo>builder()
                 .success(true)
                 .message("Tipo de insumo encontrado")
-                .data(tipoInsumoService.findById(id)
-                        .orElseThrow(() ->
-                                new RuntimeException("Tipo de insumo no encontrado")))
+                .data(tipoInsumoService.findById(id).orElseThrow(() -> new RuntimeException("Tipo de insumo no encontrado")))
                 .build();
     }
 
@@ -45,17 +43,13 @@ public class TipoInsumoController {
         return ApiResponse.<TipoInsumo>builder()
                 .success(true)
                 .message("Tipo de insumo encontrado")
-                .data(tipoInsumoService.findByNombre(nombre)
-                        .orElseThrow(() ->
-                                new RuntimeException("Tipo de insumo no encontrado")))
+                .data(tipoInsumoService.findByNombre(nombre).orElseThrow(() -> new RuntimeException("Tipo de insumo no encontrado")))
                 .build();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<TipoInsumo> createTipoInsumo(
-            @RequestBody TipoInsumo tipoInsumo
-    ) {
+    public ApiResponse<TipoInsumo> createTipoInsumo(@RequestBody TipoInsumo tipoInsumo) {
         return ApiResponse.<TipoInsumo>builder()
                 .success(true)
                 .message("Tipo de insumo creado exitosamente")
@@ -64,10 +58,7 @@ public class TipoInsumoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTipoInsumo(
-            @PathVariable UUID id,
-            @RequestBody TipoInsumo tipoInsumo
-    ) {
+    public ResponseEntity<String> updateTipoInsumo(@PathVariable UUID id, @RequestBody TipoInsumo tipoInsumo) {
         try {
             tipoInsumoService.updateTipoInsumo(id, tipoInsumo);
             return ResponseEntity.ok("Tipo Insumo actualizado con éxito");

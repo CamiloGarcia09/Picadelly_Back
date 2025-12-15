@@ -56,10 +56,7 @@ public class InsumoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateInsumo(
-            @PathVariable UUID id,
-            @RequestBody Insumo insumo
-    ) {
+    public ResponseEntity<String> updateInsumo(@PathVariable UUID id, @RequestBody Insumo insumo) {
         try {
             insumoService.updateInsumo(id, insumo);
             return ResponseEntity.ok("Insumo actualizado con éxito");

@@ -1,6 +1,5 @@
 package com.picadelly.domain.insumo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.picadelly.domain.tipoinsumo.TipoInsumo;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,8 +34,8 @@ public final    class Insumo {
     @Column(name = "stock_minimo", nullable = false)
     private Float stockMinimo;
 
-    @Column(name = "stock_maximo", nullable = false)
-    private Float stockMaximo;
+    @Column(name = "stock_actual", nullable = false)
+    private Float stockActual;
 
     @Column(name = "fecha_caducidad")
     private Date fechaCaducidad;

@@ -49,7 +49,7 @@ public class InsumoService {
                     insumo.setTipo(updated.getTipo());
                     insumo.setUnidadMedida(updated.getUnidadMedida());
                     insumo.setStockMinimo(updated.getStockMinimo());
-                    insumo.setStockMaximo(updated.getStockMaximo());
+                    insumo.setStockActual(updated.getStockActual());
                     insumo.setFechaCaducidad(updated.getFechaCaducidad());
                     insumo.setImagenURL(updated.getImagenURL());
                     return insumoRepository.save(insumo);

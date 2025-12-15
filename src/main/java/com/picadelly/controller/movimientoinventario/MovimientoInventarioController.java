@@ -27,9 +27,7 @@ public class MovimientoInventarioController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<MovimientoInventario> getMovimientoInventarioById(
-            @PathVariable UUID id
-    ) {
+    public ApiResponse<MovimientoInventario> getMovimientoInventarioById(@PathVariable UUID id) {
         MovimientoInventario movimiento = movimientoIntenvatarioService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Movimiento de inventario no encontrado"));
 
@@ -41,11 +39,8 @@ public class MovimientoInventarioController {
     }
 
     @PostMapping
-    public ApiResponse<MovimientoInventario> createMovimientoInventario(
-            @RequestBody MovimientoInventario movimientoInventario
-    ) {
-        MovimientoInventario creado =
-                movimientoIntenvatarioService.saveMovimientoInventario(movimientoInventario);
+    public ApiResponse<MovimientoInventario> createMovimientoInventario(@RequestBody MovimientoInventario movimientoInventario) {
+        MovimientoInventario creado = movimientoIntenvatarioService.saveMovimientoInventario(movimientoInventario);
 
         return ApiResponse.<MovimientoInventario>builder()
                 .success(true)
