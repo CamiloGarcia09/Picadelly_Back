@@ -25,7 +25,7 @@ public final    class Insumo {
     private String nombre;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tipo_insumo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "tipos_insumos_id", referencedColumnName = "id", nullable = false)
     private TipoInsumo tipo;
 
     @Enumerated(EnumType.STRING)
