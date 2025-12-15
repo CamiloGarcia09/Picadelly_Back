@@ -22,7 +22,7 @@ public final class MovimientoInventario {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tipo_insumo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "insumos_id", referencedColumnName = "id", nullable = false)
     private Insumo insumo;
 
     @Enumerated(EnumType.STRING)
