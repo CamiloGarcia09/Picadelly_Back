@@ -1,9 +1,9 @@
 package com.picadelly.controller.movimientoinventario;
 
 import com.picadelly.domain.movimientoinventario.MovimientoInventario;
+import com.picadelly.dto.ApiResponse;
 import com.picadelly.service.movimientoinventario.MovimientoIntenvatarioService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,40 +11,46 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/movimientoinventario")
+@RequiredArgsConstructor
 public class MovimientoInventarioController {
 
     private final MovimientoIntenvatarioService movimientoIntenvatarioService;
 
-    public MovimientoInventarioController(final MovimientoIntenvatarioService movimientoIntenvatarioService) {
-        this.movimientoIntenvatarioService = movimientoIntenvatarioService;
-    }
 
     @GetMapping
-    public ResponseEntity<List<MovimientoInventario>> getAllMovimientoInventario() {
-        List<MovimientoInventario> movimientoInventario = movimientoIntenvatarioService.findAll();
-        if (movimientoInventario.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(movimientoInventario);
+    public ApiResponse<List<MovimientoInventario>> getAllMovimientoInventario() {
+        return ApiResponse.<List<MovimientoInventario>>builder()
+                .success(true)
+                .message("Lista de movimientos de inventario")
+                .data(movimientoIntenvatarioService.findAll())
+                .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovimientoInventario> getMovimientoInventarioById(@PathVariable UUID id) {
-        return movimientoIntenvatarioService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ApiResponse<MovimientoInventario> getMovimientoInventarioById(
+            @PathVariable UUID id
+    ) {
+        MovimientoInventario movimiento = movimientoIntenvatarioService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movimiento de inventario no encontrado"));
+
+        return ApiResponse.<MovimientoInventario>builder()
+                .success(true)
+                .message("Movimiento de inventario encontrado")
+                .data(movimiento)
+                .build();
     }
 
     @PostMapping
-    public ResponseEntity<String> createMovimientoInventario(@RequestBody MovimientoInventario movimientoInventario) {
-        try {
-            movimientoIntenvatarioService.saveMovimientoInventario(movimientoInventario);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("El Movimiento en el Inventario fue creado exitosamente.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ApiResponse<MovimientoInventario> createMovimientoInventario(
+            @RequestBody MovimientoInventario movimientoInventario
+    ) {
+        MovimientoInventario creado =
+                movimientoIntenvatarioService.saveMovimientoInventario(movimientoInventario);
+
+        return ApiResponse.<MovimientoInventario>builder()
+                .success(true)
+                .message("Movimiento de inventario creado exitosamente")
+                .data(creado)
+                .build();
     }
-
 }
-
