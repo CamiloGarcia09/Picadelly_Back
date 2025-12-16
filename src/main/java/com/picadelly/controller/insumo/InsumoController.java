@@ -21,7 +21,7 @@ public class InsumoController {
 
     private final InsumoService insumoService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ApiResponsePagination<List<Insumo>> getAllInsumos(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
@@ -57,8 +57,28 @@ public class InsumoController {
                 .build();
     }
 
+    @GetMapping()
+    public ApiResponsePagination<List<Insumo>> getInsumoByFilter(
+            @RequestParam(required = false) UUID tipoInsumoID,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Insumo> result = insumoService.buscarConFiltros(tipoInsumoID, pageable);
+
+        return ApiResponsePagination.<List<Insumo>>builder()
+                .success(true)
+                .message("Lista de insumos de inventario")
+                .totalPages(result.getTotalPages())
+                .pageNumber(result.getNumber())
+                .pageSize(result.getSize())
+                .totalRecords(result.getTotalElements())
+                .data(result.getContent())
+                .build();
+    }
+
     @GetMapping("/{id}")
-    public ApiResponse<Insumo> getInsumo(@PathVariable UUID id) {
+    public ApiResponse<Insumo> getInsumoById(@PathVariable UUID id) {
         return ApiResponse.<Insumo>builder()
                 .success(true)
                 .message("Insumo encontrado")

@@ -5,8 +5,10 @@ import com.picadelly.domain.movimientoinventario.MovimientoInventario;
 import com.picadelly.domain.movimientoinventario.TipoMovimiento;
 import com.picadelly.repository.insumo.InsumoRepository;
 import com.picadelly.repository.movimientoinventario.MovimientoInventarioRepository;
+import com.picadelly.repository.movimientoinventario.filter.MovimientoInventarioSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +50,13 @@ public class MovimientoIntenvatarioService {
         return movimientoInventarioRepository.findById(id);
     }
 
+    public Page<MovimientoInventario> buscarConFiltros(final TipoMovimiento tipoMovimiento, final UUID insumoId,
+                                                       final LocalDate fecha, Pageable pageable) {
+
+        Specification<MovimientoInventario> filtro = MovimientoInventarioSpecification.conFiltros(tipoMovimiento, insumoId, fecha);
+        return movimientoInventarioRepository.findAll(filtro, pageable);
+    }
+
 
     public MovimientoInventario saveMovimientoInventario(final MovimientoInventario movimientoInventario) {
         Insumo insumo = insumoRepository.findById(movimientoInventario.getInsumo().getId())
@@ -68,7 +77,6 @@ public class MovimientoIntenvatarioService {
 
         insumoRepository.save(insumo);
         return movimientoInventarioRepository.save(movimientoInventario);
-
 
     }
 }

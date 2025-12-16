@@ -24,7 +24,7 @@ public class MovimientoInventarioController {
     private final MovimientoIntenvatarioService movimientoIntenvatarioService;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public ApiResponsePagination<List<MovimientoInventario>> getAllMovimientoInventario(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
@@ -43,7 +43,7 @@ public class MovimientoInventarioController {
     }
 
     @GetMapping("/tipomovimiento/{tipoMovimiento}")
-    public ApiResponsePagination<List<MovimientoInventario>> getMovimientoInventarioByMovimiento(
+    public ApiResponsePagination<List<MovimientoInventario>> getMovimientoInventarioByTipoMovimiento(
             @PathVariable TipoMovimiento tipoMovimiento, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
@@ -81,7 +81,7 @@ public class MovimientoInventarioController {
     }
 
     @GetMapping("/fecha")
-    public ApiResponsePagination<List<MovimientoInventario>> getByFecha(
+    public ApiResponsePagination<List<MovimientoInventario>> getMovimientoInventarioByFecha(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
             @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
 
@@ -91,6 +91,27 @@ public class MovimientoInventarioController {
         return ApiResponsePagination.<List<MovimientoInventario>>builder()
                 .success(true)
                 .message("Filtro por fecha")
+                .totalPages(result.getTotalPages())
+                .pageNumber(result.getNumber())
+                .pageSize(result.getSize())
+                .totalRecords(result.getTotalElements())
+                .data(result.getContent())
+                .build();
+    }
+
+    @GetMapping()
+    public ApiResponsePagination<List<MovimientoInventario>> getMovimientoInventarioByFilter(
+            @RequestParam(required = false) TipoMovimiento tipoMovimiento, @RequestParam(required = false) UUID insumoId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<MovimientoInventario> result = movimientoIntenvatarioService.buscarConFiltros(tipoMovimiento, insumoId, fecha, pageable);
+
+        return ApiResponsePagination.<List<MovimientoInventario>>builder()
+                .success(true)
+                .message("Lista de movimientos de inventario")
                 .totalPages(result.getTotalPages())
                 .pageNumber(result.getNumber())
                 .pageSize(result.getSize())

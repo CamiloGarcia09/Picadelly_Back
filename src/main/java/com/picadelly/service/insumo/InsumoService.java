@@ -1,9 +1,12 @@
 package com.picadelly.service.insumo;
 
 import com.picadelly.domain.insumo.Insumo;
+import com.picadelly.domain.movimientoinventario.TipoMovimiento;
 import com.picadelly.repository.insumo.InsumoRepository;
+import com.picadelly.repository.insumo.filter.InsumoSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +37,12 @@ public class InsumoService {
 
     public Optional <Insumo> findByNombre(final String nombre) {
         return insumoRepository.findByNombre(nombre);
+    }
+
+    public Page<Insumo> buscarConFiltros(final UUID tipoInsumoID, final Pageable pageable) {
+
+        Specification<Insumo> filtro = InsumoSpecification.conFiltros(tipoInsumoID);
+        return insumoRepository.findAll(filtro, pageable);
     }
 
 
