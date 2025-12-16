@@ -5,14 +5,17 @@ import com.picadelly.domain.movimientoinventario.MovimientoInventario;
 import com.picadelly.domain.movimientoinventario.TipoMovimiento;
 import com.picadelly.repository.insumo.InsumoRepository;
 import com.picadelly.repository.movimientoinventario.MovimientoInventarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 
+@Transactional
 @Service
 public class MovimientoIntenvatarioService {
 
@@ -25,8 +28,20 @@ public class MovimientoIntenvatarioService {
         this.insumoRepository = insumoRepository;
     }
 
-    public List<MovimientoInventario> findAll() {
-        return movimientoInventarioRepository.findAll();
+    public Page<MovimientoInventario> findAll(final Pageable pageable) {
+        return movimientoInventarioRepository.findAll(pageable);
+    }
+
+    public Page<MovimientoInventario> findByMovimiento(final TipoMovimiento movimiento, final Pageable pageable){
+        return movimientoInventarioRepository.findByMovimiento(movimiento, pageable);
+    }
+
+    public Page<MovimientoInventario> findByInsumo(final String nombreInsumo, final Pageable pageable){
+        return movimientoInventarioRepository.findByInsumo_Nombre(nombreInsumo, pageable);
+    }
+
+    public Page<MovimientoInventario> findByFecha(final LocalDate fecha, final Pageable pageable){
+        return movimientoInventarioRepository.findByFecha(fecha, pageable);
     }
 
     public Optional<MovimientoInventario> findById(final UUID id) {
@@ -34,7 +49,6 @@ public class MovimientoIntenvatarioService {
     }
 
 
-    @Transactional
     public MovimientoInventario saveMovimientoInventario(final MovimientoInventario movimientoInventario) {
         Insumo insumo = insumoRepository.findById(movimientoInventario.getInsumo().getId())
                 .orElseThrow(() -> new RuntimeException("Insumo no encontrado"));

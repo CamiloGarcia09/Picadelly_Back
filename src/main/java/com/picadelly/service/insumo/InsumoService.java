@@ -2,10 +2,11 @@ package com.picadelly.service.insumo;
 
 import com.picadelly.domain.insumo.Insumo;
 import com.picadelly.repository.insumo.InsumoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,8 +20,12 @@ public class InsumoService {
         this.insumoRepository = insumoRepository;
     }
 
-    public List<Insumo> findAll() {
-        return insumoRepository.findAll();
+    public Page<Insumo> findAll(final Pageable pageable) {
+        return insumoRepository.findAll(pageable);
+    }
+
+    public Page<Insumo> findByTipoInsumo (final String tipoInsumo, final Pageable pageable) {
+        return insumoRepository.findByTipo_Nombre(tipoInsumo, pageable);
     }
 
     public Optional<Insumo> findById(final UUID id) {
@@ -36,11 +41,9 @@ public class InsumoService {
         return insumoRepository.save(tipoInsumo);
     }
 
-
     public void deleteInsumo(final UUID id) {
         insumoRepository.deleteById(id);
     }
-
 
     public Optional<Insumo> updateInsumo(UUID id, Insumo updated) {
         return insumoRepository.findById(id)

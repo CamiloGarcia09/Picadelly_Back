@@ -1,6 +1,5 @@
 package com.picadelly.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class ApiResponsePagination<T> {
     private boolean success;
     private String message;

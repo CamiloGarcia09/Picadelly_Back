@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface TipoInsumoRepository extends JpaRepository<TipoInsumo, UUID> {
 
-    Optional<TipoInsumo> findById(UUID id);
-    Optional<TipoInsumo> findByNombre(String nombre);
+    Optional<TipoInsumo> findById(final UUID id);
+    Optional<TipoInsumo> findByNombre(final String nombre);
 }

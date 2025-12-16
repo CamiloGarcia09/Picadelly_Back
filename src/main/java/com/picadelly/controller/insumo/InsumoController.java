@@ -2,8 +2,12 @@ package com.picadelly.controller.insumo;
 
 import com.picadelly.dto.ApiResponse;
 import com.picadelly.domain.insumo.Insumo;
+import com.picadelly.dto.ApiResponsePagination;
 import com.picadelly.service.insumo.InsumoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +22,38 @@ public class InsumoController {
     private final InsumoService insumoService;
 
     @GetMapping
-    public ApiResponse<List<Insumo>> listInsumos() {
-        return ApiResponse.<List<Insumo>>builder()
+    public ApiResponsePagination<List<Insumo>> getAllInsumos(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Insumo> result = insumoService.findAll(pageable);
+
+        return ApiResponsePagination.<List<Insumo>>builder()
                 .success(true)
                 .message("Lista de insumos")
-                .data(insumoService.findAll())
+                .totalPages(result.getTotalPages())
+                .pageNumber(result.getNumber())
+                .pageSize(result.getSize())
+                .totalRecords(result.getTotalElements())
+                .data(result.getContent())
+                .build();
+    }
+
+    @GetMapping("/tipoinsumo/{nombreTipoInsumo}")
+    public ApiResponsePagination<List<Insumo>> getAllInsumosByTipoInsumo(@PathVariable String nombreTipoInsumo,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Insumo> result = insumoService.findByTipoInsumo(nombreTipoInsumo, pageable);
+
+        return ApiResponsePagination.<List<Insumo>>builder()
+                .success(true)
+                .message("Lista de insumos")
+                .totalPages(result.getTotalPages())
+                .pageNumber(result.getNumber())
+                .pageSize(result.getSize())
+                .totalRecords(result.getTotalElements())
+                .data(result.getContent())
                 .build();
     }
 
@@ -46,6 +77,7 @@ public class InsumoController {
                 .build();
     }
 
+
     @PostMapping
     public ApiResponse<Insumo> createInsumo(@RequestBody Insumo insumo) {
         return ApiResponse.<Insumo>builder()
@@ -64,7 +96,6 @@ public class InsumoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> deleteInsumo(@PathVariable UUID id) {
